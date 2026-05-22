@@ -23,7 +23,7 @@ def load_model():
 
             with st.spinner("Downloading model..."):
 
-                file_id = "YOUR_NEW_FILE_ID"
+                file_id = "1xe1v8WJrTTR5DSgKFN8_i8QfeIrBnQIg"
 
                 url = f"https://drive.google.com/uc?id={file_id}"
 
