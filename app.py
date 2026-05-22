@@ -15,12 +15,12 @@ st.set_page_config(
 # ---- Load Model from Google Drive ----
 @st.cache_resource
 def load_model():
-    model_path = "breast_cancer_model.h5"
+    model_path = "breast_cancer_model.keras"
     
     if not os.path.exists(model_path):
         with st.spinner("⏳ Downloading model... please wait"):
             # PASTE YOUR GOOGLE DRIVE FILE ID BELOW
-            file_id = "1jxp5dwm4sdrPZ9xvs1YX2TrcEVIc3Ffy"
+            file_id = "1xe1v8WJrTTR5DSgKFN8_i8QfeIrBnQIg"
             url = f"https://drive.google.com/uc?id={file_id}"
             gdown.download(url, model_path, quiet=False)
     
