@@ -1,3 +1,4 @@
+%%writefile app.py
 import streamlit as st
 import numpy as np
 from PIL import Image
@@ -15,43 +16,20 @@ st.set_page_config(
 # ---- Load Model from Google Drive ----
 @st.cache_resource
 def load_model():
-
     model_path = "breast_cancer_model_v3.keras"
 
-    try:
-        if not os.path.exists(model_path):
+    if not os.path.exists(model_path):
+        with st.spinner("⏳ Downloading model... please wait"):
+            # PASTE YOUR GOOGLE DRIVE FILE ID BELOW
+            file_id = "1neiW-2yhVQe0FhqYSApuNU7yMCFWnWzy"
+            url = f"https://drive.google.com/uc?id={1-EwzZkzDths-OpMPdX-ijn8ND8nNIOSz}"
+            gdown.download(url, model_path, quiet=False)
 
-            with st.spinner("Downloading model..."):
+    model = tf.keras.models.load_model(model_path)
+    return model
 
-                file_id = "1neiW-2yhVQe0FhqYSApuNU7yMCFWnWzy"
-
-                url = f"https://drive.google.com/uc?id={file_id}"
-
-                gdown.download(
-                    url,
-                    model_path,
-                    quiet=False
-                )
-
-        model = tf.keras.models.load_model(
-            model_path,
-            compile=False
-        )
-
-        return model
-
-    except Exception as e:
-
-        st.error(f"Model loading failed: {e}")
-
-        return None
-
-
-# VERY IMPORTANT
 model = load_model()
 
-if model is None:
-    st.stop()
 # ---- Header ----
 st.title("🩺 Breast Cancer Detection")
 st.write("Upload a histopathology image to get an AI-powered prediction.")
@@ -70,7 +48,7 @@ with col1:
 
     if uploaded is not None:
         img = Image.open(uploaded)
-        st.image(img, caption="Uploaded Image", width="stretch")
+        st.image(img, caption="Uploaded Image", use_column_width=True)
 
         if st.button("🔍 Run Prediction", use_container_width=True):
             with st.spinner("Analyzing image..."):
