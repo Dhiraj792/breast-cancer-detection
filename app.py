@@ -28,6 +28,7 @@ def load_model():
         compile=False
     )
     return model
+model = load_model()
 
 # ---- Header ----
 st.title("🩺 Breast Cancer Detection")
