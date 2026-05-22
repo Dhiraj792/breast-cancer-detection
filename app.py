@@ -21,7 +21,7 @@ def load_model():
         with st.spinner("⏳ Downloading model... please wait"):
             # PASTE YOUR GOOGLE DRIVE FILE ID BELOW
             file_id = "1neiW-2yhVQe0FhqYSApuNU7yMCFWnWzy"
-            url = f"https://drive.google.com/uc?id={1-EwzZkzDths-OpMPdX-ijn8ND8nNIOSz}"
+            url = f"https://drive.google.com/uc?id={file_id}"
             gdown.download(url, model_path, quiet=False)
 
     model = tf.keras.models.load_model(model_path)
