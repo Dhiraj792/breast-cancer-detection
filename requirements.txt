@@ -2,5 +2,5 @@ streamlit
 numpy
 pillow
 gdown
-tensorflow
 h5py
+tensorflow==2.15.0
