@@ -3,5 +3,4 @@ numpy==1.26.4
 pillow
 gdown
 h5py
-tensorflow==2.20.0
-keras==3.11.3
+tensorflow==2.15.0
