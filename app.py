@@ -23,13 +23,16 @@ def load_model():
             url = f"https://drive.google.com/uc?id={file_id}"
             gdown.download(url, model_path, quiet=False)
     
-    model = tf.keras.models.load_model(
-    model_path,
-    compile=False,
-    safe_mode=False
-)
+    # --- THIS FIXED LINE ENFORCES LEGACY LOADING ---
+    import keras
+    try:
+        # If Keras 3 is somehow still active, this bypasses it
+        model = keras.src.legacy.saving.legacy_h5_format.load_model_from_hdf5(model_path, compile=False)
+    except AttributeError:
+        # If your environment correctly downgraded to Keras 2
+        model = tf.keras.models.load_model(model_path, compile=False)
+        
     return model
-model = load_model()
 
 # ---- Header ----
 st.title("🩺 Breast Cancer Detection")
