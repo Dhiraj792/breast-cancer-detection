@@ -23,7 +23,7 @@ def load_model():
 
             with st.spinner("Downloading model..."):
 
-                file_id = "1xe1v8WJrTTR5DSgKFN8_i8QfeIrBnQIg"
+                file_id = "1neiW-2yhVQe0FhqYSApuNU7yMCFWnWzy"
 
                 url = f"https://drive.google.com/uc?id={file_id}"
 
@@ -70,7 +70,7 @@ with col1:
 
     if uploaded is not None:
         img = Image.open(uploaded)
-        st.image(img, caption="Uploaded Image", use_column_width=True)
+        st.image(img, caption="Uploaded Image", width="stretch")
 
         if st.button("🔍 Run Prediction", use_container_width=True):
             with st.spinner("Analyzing image..."):
