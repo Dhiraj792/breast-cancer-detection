@@ -20,7 +20,7 @@ def load_model():
     if not os.path.exists(model_path):
         with st.spinner("⏳ Downloading model... please wait"):
             # PASTE YOUR GOOGLE DRIVE FILE ID BELOW
-            file_id = "1-EwzZkzDths-OpMPdX-ijn8ND8nNIOSz"
+            file_id = "1jxp5dwm4sdrPZ9xvs1YX2TrcEVIc3Ffy"
             url = f"https://drive.google.com/uc?id={file_id}"
             gdown.download(url, model_path, quiet=False)
     
