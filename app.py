@@ -15,20 +15,26 @@ st.set_page_config(
 # ---- Load Model from Google Drive ----
 @st.cache_resource
 def load_model():
-    model_path = "breast_cancer_model.keras"
+    model_path = "breast_cancer_model_v3.keras"
 
-    if not os.path.exists(model_path):
-        with st.spinner("⏳ Downloading model... please wait"):
-            file_id = "1xe1v8WJrTTR5DSgKFN8_i8QfeIrBnQIg"
-            url = f"https://drive.google.com/uc?id={file_id}"
-            gdown.download(url, model_path, quiet=False)
+    try:
+        if not os.path.exists(model_path):
+            with st.spinner("⏳ Downloading model... please wait"):
+                file_id = "YOUR_NEW_FILE_ID"
+                url = f"https://drive.google.com/uc?id={file_id}"
 
-    model = tf.keras.models.load_model(
-        model_path,
-        compile=False
-    )
+                gdown.download(url, model_path, quiet=False)
 
-    return model
+        model = tf.keras.models.load_model(
+            model_path,
+            compile=False
+        )
+
+        return model
+
+    except Exception as e:
+        st.error(f"❌ Model loading failed: {e}")
+        return None
 
 # ---- Header ----
 st.title("🩺 Breast Cancer Detection")
