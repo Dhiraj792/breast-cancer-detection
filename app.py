@@ -1,4 +1,3 @@
-%%writefile app.py
 import streamlit as st
 import numpy as np
 from PIL import Image
@@ -21,8 +20,8 @@ def load_model():
     if not os.path.exists(model_path):
         with st.spinner("⏳ Downloading model... please wait"):
             # PASTE YOUR GOOGLE DRIVE FILE ID BELOW
-            file_id = "PASTE_YOUR_FILE_ID_HERE"
-            url = f"https://drive.google.com/uc?id={1-EwzZkzDths-OpMPdX-ijn8ND8nNIOSz}"
+            file_id = "1-EwzZkzDths-OpMPdX-ijn8ND8nNIOSz"
+            url = f"https://drive.google.com/uc?id={file_id}"
             gdown.download(url, model_path, quiet=False)
     
     model = tf.keras.models.load_model(model_path)
