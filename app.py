@@ -12,7 +12,6 @@ st.set_page_config(
     layout="wide"
 )
 
-# ---- Load Model from Google Drive ----
 @st.cache_resource
 def load_model():
     model_path = "breast_cancer_model_v2.h5"
@@ -23,23 +22,15 @@ def load_model():
             url = f"https://drive.google.com/uc?id={file_id}"
             gdown.download(url, model_path, quiet=False)
     
-    # --- THIS FIXED LINE ENFORCES LEGACY LOADING ---
-    import keras
-    try:
-        # If Keras 3 is somehow still active, this bypasses it
-        model = keras.src.legacy.saving.legacy_h5_format.load_model_from_hdf5(model_path, compile=False)
-    except AttributeError:
-        # If your environment correctly downgraded to Keras 2
-        model = tf.keras.models.load_model(model_path, compile=False)
-        
+    model = tf.keras.models.load_model(model_path, compile=False)
     return model
 
-# ---- Header ----
+model = load_model()
+
 st.title("🩺 Breast Cancer Detection")
 st.write("Upload a histopathology image to get an AI-powered prediction.")
 st.divider()
 
-# ---- Layout ----
 col1, col2 = st.columns(2)
 
 with col1:
@@ -59,8 +50,18 @@ with col1:
                 img_rgb = img.convert("RGB").resize((224, 224))
                 arr = np.array(img_rgb) / 255.0
                 arr = np.expand_dims(arr, axis=0)
-                score = float(model.predict(arr, verbose=0)[0][0])
+                prediction = model.predict(arr, verbose=0)
+
+                # Handle different output shapes ✅
+                if prediction.ndim == 2:
+                    score = float(prediction[0][0])
+                elif prediction.ndim == 1:
+                    score = float(prediction[0])
+                else:
+                    score = float(prediction.flatten()[0])
+
                 time.sleep(0.5)
+
             st.session_state["score"] = score
             st.session_state["threshold"] = threshold
 
