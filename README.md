@@ -251,7 +251,6 @@ Through this project, I learned:
 ## Dhiraj Badre
 
 AI & Data Science Enthusiast
-
 ---
 
 # 🌟 Conclusion
