@@ -64,7 +64,6 @@ with col1:
 
             st.session_state["score"] = score
             st.session_state["threshold"] = threshold
-
 with col2:
     st.subheader("Prediction Result")
 
